@@ -25,8 +25,8 @@ public class AtendenteService {
                 .orElseThrow(() -> new RuntimeException("Não encontrado atendente com o id: " + id));
     }
 
-    public Atendente findByCpf(String cpf_atendente){
-        Atendente atendente = atendenteRepository.findByCpf(cpf_atendente);
+    public Atendente findByCpf(String cpfAtendente){
+        Atendente atendente = atendenteRepository.findByCpf(cpfAtendente);
         if (atendente != null) {
             return atendente;
         } else {
