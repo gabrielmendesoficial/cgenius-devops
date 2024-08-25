@@ -20,12 +20,12 @@ public class EspecificacaoService {
     }
 
     public Especificacao create(Especificacao especificacao){
-        if (especificacaoRepository.findById(especificacao.getId()) == null){
+        if (especificacaoRepository.findByCpfCliente(especificacao.getCliente().getCpfCliente()) != null){
             return especificacaoRepository.save(especificacao);
-        }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Especificacão já cadastrada");
-        }     
+    }else{
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
     }
+}
 
     public Especificacao findById(Long id){
         return especificacaoRepository
@@ -34,7 +34,7 @@ public class EspecificacaoService {
     }
 
     public Especificacao findByCpf(String cpfCliente){
-        Especificacao cliente = especificacaoRepository.findByCpf(cpfCliente);
+        Especificacao cliente = especificacaoRepository.findByCpfCliente(cpfCliente);
     if (cliente != null) {
         return cliente;
     } else {
@@ -67,11 +67,11 @@ public class EspecificacaoService {
         e.setInteresses(especificacao.getInteresses());
         e.setProfissao(especificacao.getProfissao());
         e.setDependentes(especificacao.getDependentes());
-        e.setCpfCliente(especificacao.getCpfCliente());
+        e.setCliente(especificacao.getCliente());
         return especificacaoRepository.save(e);
 }
 
-    private void verificarId(Long id){
+    public void verificarId(Long id){
         especificacaoRepository.
         findById(id)
         .orElseThrow(
@@ -79,19 +79,13 @@ public class EspecificacaoService {
         );
     }
 
-    private Especificacao verificarCpf(String cpfCliente){
-        Especificacao especificacao = especificacaoRepository.findByCpf(cpfCliente);
+    public Especificacao verificarCpf(String cpfCliente){
+        Especificacao especificacao = especificacaoRepository.findByCpfCliente(cpfCliente);
     if (especificacao == null) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Especificacao com CPF não encontrado");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CPF não encontrado");
     }else{
         return especificacao;
     }
 }
-
-
-
-
-
-
 
 }

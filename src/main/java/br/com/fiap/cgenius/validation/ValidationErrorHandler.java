@@ -1,5 +1,6 @@
-package br.com.fiap.cgenius.service;
+package br.com.fiap.cgenius.validation;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 import java.util.List;
 
 import org.springframework.validation.FieldError;

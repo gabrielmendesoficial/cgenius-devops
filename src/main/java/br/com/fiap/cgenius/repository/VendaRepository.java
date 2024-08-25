@@ -1,13 +1,13 @@
 package br.com.fiap.cgenius.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import java.util.List;
 import br.com.fiap.cgenius.model.Venda;
 
 public interface VendaRepository extends JpaRepository<Venda, Long> {
-    Venda findByCpfAtendente(String cpfAtendente);
-    Venda findByCpfCliente(String cpfCliente);
+    List<Venda> findByCpfAtendente(String cpfAtendente);
+    List<Venda> findByCpfCliente(String cpfCliente);
     Venda findByIdScript(Long idScript);
-    Venda findByIdPlano(Long idPlano);
+    List<Venda> findByIdPlano(Long idPlano);
 
 }

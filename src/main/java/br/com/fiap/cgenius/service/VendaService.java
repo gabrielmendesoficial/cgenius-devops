@@ -28,16 +28,16 @@ public class VendaService {
         return vendaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "id não encontrado"));
     }
 
-    public Venda findByCpfAtendente(String cpfAtendente){
-        Venda venda = vendaRepository.findByCpfAtendente(cpfAtendente);
+    public List<Venda> findByCpfAtendente(String cpfAtendente){
+        List<Venda> venda = vendaRepository.findByCpfAtendente(cpfAtendente);
         if (venda != null) {
             return venda;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrado");
         }
     }
-    public Venda findByCpfCliente(String cpfCliente){
-        Venda venda = vendaRepository.findByCpfCliente(cpfCliente);
+    public List<Venda> findByCpfCliente(String cpfCliente){
+        List<Venda> venda = vendaRepository.findByCpfCliente(cpfCliente);
         if (venda != null) {
             return venda;
         } else {
@@ -52,16 +52,14 @@ public class VendaService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrado");
         }
     }
-    public Venda findByIdPlano(Long id){
-        Venda venda = vendaRepository.findByIdPlano(id);
+    public List<Venda> findByIdPlano(Long id){
+        List<Venda> venda = vendaRepository.findByIdPlano(id);
         if (venda != null) {
             return venda;
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Especificacão não encontrado");
         }
     }
-    
-
 
     public void delete(Long id){
         verificarExistencia(id);

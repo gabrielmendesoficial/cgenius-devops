@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "especificacao")
 public class Especificacao {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -45,5 +47,5 @@ public class Especificacao {
     private Integer dependentes;
 
     @OneToOne
-    private Cliente cpfCliente;
+    private Cliente Cliente;
 }

@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.fiap.cgenius.model.Especificacao;
 
 public interface EspecificacaoRepository extends JpaRepository<Especificacao, Long> {
-    Especificacao findByCpf(String cpf);
+    Especificacao findByCpfCliente(String cpf);
+    Especificacao findByCliente(Long id);
     void deleteByCpf(String cpf);
 
 }
