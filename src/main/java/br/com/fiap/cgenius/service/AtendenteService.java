@@ -35,7 +35,7 @@ public class AtendenteService {
     }
 
     public Atendente create(Atendente atendente) {
-        if (atendenteRepository.findByCpf(atendente.getCpfAtendente()) == null) {
+        if (atendenteRepository.findByCpf(atendente.getCpf()) == null) {
             return atendenteRepository.save(atendente);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");
@@ -45,7 +45,7 @@ public class AtendenteService {
     public Atendente update(Long id, Atendente atendente) {
         Atendente a = findById(id);
         a.setNomeAtendente(atendente.getNomeAtendente());
-        a.setCpfAtendente(atendente.getCpfAtendente());
+        a.setCpf(atendente.getCpf());
         a.setSetorAtendente(atendente.getSetorAtendente());
         a.setSenhaAtendente(atendente.getSenhaAtendente());
         a.setPerfilAtendente(atendente.getPerfilAtendente());
@@ -55,7 +55,7 @@ public class AtendenteService {
     public Atendente update(String cpf_atendente, Atendente atendente){
         Atendente a = verificarCpf(cpf_atendente);
         a.setNomeAtendente(atendente.getNomeAtendente());
-        a.setCpfAtendente(atendente.getCpfAtendente());
+        a.setCpf(atendente.getCpf());
         a.setSetorAtendente(atendente.getSetorAtendente());
         a.setSenhaAtendente(atendente.getSenhaAtendente());
         a.setPerfilAtendente(atendente.getPerfilAtendente());

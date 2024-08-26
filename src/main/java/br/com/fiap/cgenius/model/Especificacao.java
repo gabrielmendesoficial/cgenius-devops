@@ -47,5 +47,5 @@ public class Especificacao {
     private Integer dependentes;
 
     @OneToOne
-    private Cliente Cliente;
+    private Cliente cliente;
 }

@@ -20,7 +20,7 @@ public class EspecificacaoService {
     }
 
     public Especificacao create(Especificacao especificacao){
-        if (especificacaoRepository.findByCpfCliente(especificacao.getCliente().getCpfCliente()) != null){
+        if (especificacaoRepository.findByCpfCliente(especificacao.getCliente().getCpf()) != null){
             return especificacaoRepository.save(especificacao);
     }else{
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
@@ -49,7 +49,7 @@ public class EspecificacaoService {
 
     public void deleteByCpf(String cpfCliente){
         verificarCpf(cpfCliente);
-        especificacaoRepository.deleteByCpf(cpfCliente);
+        especificacaoRepository.deleteByCpfCliente(cpfCliente);
     }
 
     public Especificacao update(Long id, Especificacao especificacao){

@@ -20,7 +20,7 @@ public class ClienteService {
     }
 
     public Cliente create(Cliente cliente){
-        if (clienteRepository.findByCpf(cliente.getCpfCliente()) == null){
+        if (clienteRepository.findByCpf(cliente.getCpf()) == null){
             return clienteRepository.save(cliente);
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente já cadastrado");
@@ -62,7 +62,7 @@ public class ClienteService {
     public Cliente updateByCpf(String cpfCliente, Cliente cliente){
         Cliente c = verificarCpf(cpfCliente);
         c.setNomeCliente(cliente.getNomeCliente());
-        c.setCpfCliente(cliente.getCpfCliente());
+        c.setCpf(cliente.getCpf());
         c.setDtNascimento(cliente.getDtNascimento());
         c.setGenero(cliente.getGenero());
         c.setCep(cliente.getCep());

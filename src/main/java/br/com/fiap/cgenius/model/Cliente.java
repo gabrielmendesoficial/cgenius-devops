@@ -31,7 +31,7 @@ public class Cliente {
 
     @NotBlank(message = "Campo obrigatório")
     @Size(min=11,  message = "CPF Inválido")
-    private String cpfCliente;
+    private String cpf;
 
     @NotNull(message="Campo Obrigatório")
     private Date dtNascimento;

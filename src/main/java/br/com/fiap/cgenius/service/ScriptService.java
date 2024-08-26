@@ -25,7 +25,7 @@ public class ScriptService {
     }
 
     public Script create(Script script){
-        verificarExistenciaPlano(script.getIdPlano());
+        verificarExistenciaPlano(script.getPlano());
         return scriptRepository.save(script);
     }
 

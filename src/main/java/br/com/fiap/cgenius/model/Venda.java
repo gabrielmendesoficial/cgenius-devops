@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,15 +22,15 @@ public class Venda {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    
-    private Atendente cpfAtendente;
+    @ManyToOne
+    private Atendente atendente;
 
-    
-    private Cliente cpfCliente;
+    @ManyToOne
+    private Cliente cliente;
 
-    
-    private Script idScript;
+    @OneToOne
+    private Script script;
 
-    
-    private Plano idPlano;
+    @OneToOne
+    private Plano plano;
 }

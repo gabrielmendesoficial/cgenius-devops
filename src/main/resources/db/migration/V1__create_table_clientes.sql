@@ -1,7 +1,7 @@
 CREATE TABLE CLIENTE(
     id INTEGER,
     nomeCliente VARCHAR(50),
-    cpfCliente VARCHAR(11) PRIMARY KEY,
+    cpf VARCHAR(11) PRIMARY KEY,
     dtNascimento DATE,
     genero VARCHAR(10),
     cep CHAR(8),
@@ -19,12 +19,12 @@ CREATE TABLE ESPECIFICACAO(
     profissao VARCHAR(30), 
     dependentes NUMBER(1),
     cpfCliente VARCHAR(11),
-    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpfCliente));
+    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpf));
 
 CREATE TABLE ATENDENTE(
     id INTEGER,
     nomeAtendente VARCHAR(50),
-    cpfAtendente VARCHAR(11) PRIMARY KEY,
+    cpf VARCHAR(11) PRIMARY KEY,
     setorAtendente VARCHAR(20),
     senhaAtendente VARCHAR(10),
     perfilAtendente VARCHAR(30));
@@ -35,7 +35,7 @@ CREATE TABLE PLANO(
     descricaoPlano VARCHAR(100),
     valorPlano DECIMAL(10,2));
 
-CREATE TABLE SCRIPTS(
+CREATE TABLE SCRIPT(
     id INTEGER PRIMARY KEY,
     descricaoScript CLOB,
     idPlano INTEGER,
@@ -47,7 +47,7 @@ CREATE TABLE VENDA(
     cpfCliente VARCHAR(11),
     idScript INTEGER,
     idPlano INTEGER,
-    FOREIGN KEY (cpfAtendente) REFERENCES ATENDENTE(cpfAtendente),
-    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpfCliente),
-    FOREIGN KEY (idScript) REFERENCES SCRIPTS(id),
+    FOREIGN KEY (cpfAtendente) REFERENCES ATENDENTE(cpf),
+    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpf),
+    FOREIGN KEY (idScript) REFERENCES SCRIPT(id),
     FOREIGN KEY (idPlano) REFERENCES PLANO(id));

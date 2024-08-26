@@ -27,7 +27,7 @@ public class Atendente {
 
     @NotBlank(message = "Campo obrigatório")
     @Size(min=11,  message = "CPF Inválido")
-    private String cpfAtendente;
+    private String cpf;
 
     @NotBlank(message = "Campo obrigatório")
     private String setorAtendente;
