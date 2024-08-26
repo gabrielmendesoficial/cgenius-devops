@@ -13,12 +13,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// @Data
+@Data
 @Entity
-// @Builder
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Table(name = "plano")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "plano")
 public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
