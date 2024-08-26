@@ -23,19 +23,19 @@ public class Atendente {
     private Long id;
 
     @NotBlank(message = "Campo obrigatório")
-    private String nomeAtendente;
+    private String nome;
 
     @NotBlank(message = "Campo obrigatório")
     @Size(min=11,  message = "CPF Inválido")
     private String cpf;
 
     @NotBlank(message = "Campo obrigatório")
-    private String setorAtendente;
+    private String setor;
 
     @NotBlank(message = "Campo obrigatório")    
     @Size(min = 6, message = "Mínimo de 6 caracteres")
-    private String senhaAtendente;
+    private String senha;
 
     @NotBlank(message = "Campo obrigatório")
-    private String perfilAtendente;   
+    private String perfil;   
 }

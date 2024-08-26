@@ -44,21 +44,21 @@ public class AtendenteService {
 
     public Atendente update(Long id, Atendente atendente) {
         Atendente a = findById(id);
-        a.setNomeAtendente(atendente.getNomeAtendente());
+        a.setNome(atendente.getNome());
         a.setCpf(atendente.getCpf());
-        a.setSetorAtendente(atendente.getSetorAtendente());
-        a.setSenhaAtendente(atendente.getSenhaAtendente());
-        a.setPerfilAtendente(atendente.getPerfilAtendente());
+        a.setSetor(atendente.getSetor());
+        a.setSenha(atendente.getSenha());
+        a.setPerfil(atendente.getPerfil());
         return atendenteRepository.save(a);
     }
 
     public Atendente update(String cpf_atendente, Atendente atendente){
         Atendente a = verificarCpf(cpf_atendente);
-        a.setNomeAtendente(atendente.getNomeAtendente());
+        a.setNome(atendente.getNome());
         a.setCpf(atendente.getCpf());
-        a.setSetorAtendente(atendente.getSetorAtendente());
-        a.setSenhaAtendente(atendente.getSenhaAtendente());
-        a.setPerfilAtendente(atendente.getPerfilAtendente());
+        a.setSetor(atendente.getSetor());
+        a.setSenha(atendente.getSenha());
+        a.setPerfil(atendente.getPerfil());
         return atendenteRepository.save(a);
     }
     

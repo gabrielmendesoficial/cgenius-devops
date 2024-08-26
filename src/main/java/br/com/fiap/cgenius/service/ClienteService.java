@@ -61,14 +61,14 @@ public class ClienteService {
 
     public Cliente updateByCpf(String cpfCliente, Cliente cliente){
         Cliente c = verificarCpf(cpfCliente);
-        c.setNomeCliente(cliente.getNomeCliente());
+        c.setNome(cliente.getNome());
         c.setCpf(cliente.getCpf());
         c.setDtNascimento(cliente.getDtNascimento());
         c.setGenero(cliente.getGenero());
         c.setCep(cliente.getCep());
         c.setTelefone(cliente.getTelefone());
         c.setEmail(cliente.getEmail());
-        c.setPerfilCliente(cliente.getPerfilCliente());
+        c.setPerfil(cliente.getPerfil());
         return clienteRepository.save(c);
 }
 

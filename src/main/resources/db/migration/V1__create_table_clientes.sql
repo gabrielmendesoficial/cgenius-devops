@@ -1,17 +1,17 @@
 CREATE TABLE CLIENTE(
     id INTEGER,
-    nomeCliente VARCHAR(50),
+    nome VARCHAR(50),
     cpf VARCHAR(11) PRIMARY KEY,
     dtNascimento DATE,
     genero VARCHAR(10),
     cep CHAR(8),
     telefone VARCHAR(10),
     email VARCHAR(50),
-    perfilCliente VARCHAR(30));
+    perfil VARCHAR(30));
 
 CREATE TABLE ESPECIFICACAO(
     id INTEGER PRIMARY KEY,
-    tipoCartaoCredito VARCHAR(3),
+    tipoCartaoCredito VARCHAR,
     gastoMensal DECIMAL(10,2),
     rendaMensal DECIMAL(10,2),
     viajaFrequentemente NUMBER(1),
@@ -23,11 +23,11 @@ CREATE TABLE ESPECIFICACAO(
 
 CREATE TABLE ATENDENTE(
     id INTEGER,
-    nomeAtendente VARCHAR(50),
+    nome VARCHAR(50),
     cpf VARCHAR(11) PRIMARY KEY,
-    setorAtendente VARCHAR(20),
-    senhaAtendente VARCHAR(10),
-    perfilAtendente VARCHAR(30));
+    setor VARCHAR(20),
+    senha VARCHAR(10),
+    perfil VARCHAR(30));
     
 CREATE TABLE PLANO(
     nomePlano VARCHAR(30),
@@ -51,3 +51,17 @@ CREATE TABLE VENDA(
     FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpf),
     FOREIGN KEY (idScript) REFERENCES SCRIPT(id),
     FOREIGN KEY (idPlano) REFERENCES PLANO(id));
+
+
+INSERT INTO CLIENTE (id, nome, cpf, dtNascimento, genero, cep, telefone, email, perfil) VALUES (1, 'John Doe', '12345678901', '1990-01-01', 'Male', '12345678', '1234567890', 'john.doe@example.com', 'Regular');
+
+INSERT INTO ESPECIFICACAO (id, tipoCartaoCredito, gastoMensal, rendaMensal, viajaFrequentemente, interesses, profissao, dependentes, cpfCliente) VALUES (1, 'Visa', 1000.00, 5000.00, 1, 'Travel, Dining', 'Engineer', 2, '12345678901');
+
+INSERT INTO ATENDENTE (id, nome, cpf, setor, senha, perfil) VALUES (1, 'Jane Smith', '98765432101', 'Customer Service', 'password', 'Regular');
+
+INSERT INTO PLANO (nomePlano, id, descricaoPlano, valorPlano) VALUES ('Basic Plan', 1, 'Basic plan with limited features', 9.99);
+
+INSERT INTO SCRIPT (id, descricaoScript, idPlano) VALUES (1, 'Script for Basic Plan', 1);
+
+INSERT INTO VENDA (id, cpfAtendente, cpfCliente, idScript, idPlano) VALUES (1, '98765432101', '12345678901', 1, 1);
+

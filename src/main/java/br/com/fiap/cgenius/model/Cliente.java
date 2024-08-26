@@ -2,6 +2,7 @@ package br.com.fiap.cgenius.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Cliente {
     private Long id;
     
     @NotBlank(message = "Campo obrigatório")
-    private String nomeCliente;
+    private String nome;
 
     @NotBlank(message = "Campo obrigatório")
     @Size(min=11,  message = "CPF Inválido")
@@ -51,5 +52,5 @@ public class Cliente {
     private String email;
 
     @NotBlank(message = "Campo obrigatório")
-    private String perfilCliente;
+    private String perfil;
 }
