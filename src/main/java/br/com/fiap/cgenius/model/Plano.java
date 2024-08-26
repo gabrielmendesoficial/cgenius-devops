@@ -1,7 +1,6 @@
 package br.com.fiap.cgenius.model;
 
-import java.math.BigDecimal;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,22 +13,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+// @Data
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "plano")
+// @Builder
+// @NoArgsConstructor
+// @AllArgsConstructor
+// @Table(name = "plano")
 public class Plano {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "nomePlano")
     @NotBlank(message = "Campo Obrigatório")
     private String nomePlano;
 
+    @Column(name = "descricaoPlano")
     @NotBlank(message = "Campo Obrigatório")
     private String descricaoPlano;
 
+    @Column(name = "valorPlano")
     @PositiveOrZero(message = "O valor do produto deve ser positivo")
-    private BigDecimal valorPlano;
+    private Double valorPlano;
 }

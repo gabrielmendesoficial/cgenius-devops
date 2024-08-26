@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("venda")
+@RequestMapping("/venda")
 @Slf4j
 @Tag(name = "vendas", description = "Endpoint relacionado com vendas")
 public class VendaController {

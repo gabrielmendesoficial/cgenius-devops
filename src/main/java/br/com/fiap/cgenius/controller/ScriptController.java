@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
-@RequestMapping("script")
+@RequestMapping("/script")
 @Slf4j
 @Tag(name = "scripts", description = "Endpoint relacionado com scripts")
 public class ScriptController {

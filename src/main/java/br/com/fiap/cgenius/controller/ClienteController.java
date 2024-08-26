@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
-@RequestMapping("cliente")
+@RequestMapping("/cliente")
 @Slf4j
 @CacheConfig(cacheNames = "clientes")
 @Tag(name = "clientes", description = "Endpoint relacionado com clientes")
