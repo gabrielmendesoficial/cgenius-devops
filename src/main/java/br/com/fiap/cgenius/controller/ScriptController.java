@@ -43,7 +43,7 @@ public class ScriptController {
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public List<Script> index(){
-        return  scriptService.findAll();
+        return scriptService.findAll();
     }
 
     @PostMapping

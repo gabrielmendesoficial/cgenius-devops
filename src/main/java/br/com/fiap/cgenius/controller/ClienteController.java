@@ -45,6 +45,7 @@ public class ClienteController {
         @ApiResponse(responseCode = "200", description = "Lista de clientes retornada com sucesso"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    
     public List<Cliente> index(){
         return clienteService.findAll();
     }

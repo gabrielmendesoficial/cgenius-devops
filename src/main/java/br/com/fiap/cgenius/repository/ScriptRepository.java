@@ -6,5 +6,4 @@ import br.com.fiap.cgenius.model.Script;
 
 public interface ScriptRepository extends JpaRepository<Script, Long> {
 
-
 }

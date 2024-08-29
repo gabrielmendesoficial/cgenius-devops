@@ -1,67 +1,97 @@
-CREATE TABLE CLIENTE(
-    id INTEGER,
-    nome VARCHAR(50),
-    cpf VARCHAR(11) PRIMARY KEY,
-    dtNascimento DATE,
-    genero VARCHAR(10),
-    cep CHAR(8),
-    telefone VARCHAR(10),
-    email VARCHAR(50),
-    perfil VARCHAR(30));
+-- DROP TABLE CLIENTE CASCADE CONSTRAINTS;
+-- DROP TABLE ESPECIFICACAO CASCADE CONSTRAINTS;
+-- DROP TABLE ATENDENTE CASCADE CONSTRAINTS;
+-- DROP TABLE SCRIPTS CASCADE CONSTRAINTS;
+-- DROP TABLE PLANO CASCADE CONSTRAINTS;
+-- DROP TABLE VENDA CASCADE CONSTRAINTS;
 
-CREATE TABLE ESPECIFICACAO(
-    id INTEGER PRIMARY KEY,
-    tipoCartaoCredito VARCHAR,
-    gastoMensal DECIMAL(10,2),
-    rendaMensal DECIMAL(10,2),
-    viajaFrequentemente NUMBER(1),
-    interesses VARCHAR(50),
-    profissao VARCHAR(30), 
-    dependentes NUMBER(1),
-    cpfCliente VARCHAR(11),
-    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpf));
 
 CREATE TABLE ATENDENTE(
-    id INTEGER,
-    nome VARCHAR(50),
-    cpf VARCHAR(11) PRIMARY KEY,
+    id_atendente INTEGER PRIMARY KEY,
+    nome_atendente VARCHAR(50),
+    cpf_atendente VARCHAR(11),
     setor VARCHAR(20),
     senha VARCHAR(10),
-    perfil VARCHAR(30));
+    perfil_atendente VARCHAR(30));
     
 CREATE TABLE PLANO(
-    nomePlano VARCHAR(30),
-    id INTEGER PRIMARY KEY,
-    descricaoPlano VARCHAR(100),
-    valorPlano DECIMAL(10,2));
+    nome_plano VARCHAR(30),
+    id_plano INTEGER PRIMARY KEY,
+    descricao_plano VARCHAR(100),
+    valor_plano NUMBER(10,2));
 
 CREATE TABLE SCRIPT(
-    id INTEGER PRIMARY KEY,
-    descricaoScript CLOB,
-    idPlano INTEGER,
-    FOREIGN KEY (idPlano) REFERENCES PLANO(id));
+    id_script INTEGER PRIMARY KEY,
+    descricao_script CLOB,
+    id_plano INTEGER,
+    FOREIGN KEY (id_plano) REFERENCES PLANO(id_plano));
+    
+CREATE TABLE CLIENTE(
+    id_cliente INTEGER PRIMARY KEY,
+    nome_cliente VARCHAR(50),
+    cpf_cliente VARCHAR(11),
+    dt_nascimento DATE,
+    genero VARCHAR(10),
+    cep CHAR(8),
+    telefone VARCHAR(11),
+    email VARCHAR(50),
+    perfil_cliente VARCHAR(30));
+
+CREATE TABLE ESPECIFICACAO(
+    id_especificacao INTEGER PRIMARY KEY,
+    tipo_cartao_credito VARCHAR(10),
+    gasto_mensal NUMBER(10,2),
+    viaja_frequentemente NUMBER(1),
+    interesses VARCHAR(50),
+    profissao VARCHAR(30), 
+    renda_mensal NUMBER(10,2),
+    dependentes NUMBER(1),
+    id_cliente INTEGER,
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente));
 
 CREATE TABLE VENDA(
-    id INTEGER PRIMARY KEY,
-    cpfAtendente VARCHAR(11),
-    cpfCliente VARCHAR(11),
-    idScript INTEGER,
-    idPlano INTEGER,
-    FOREIGN KEY (cpfAtendente) REFERENCES ATENDENTE(cpf),
-    FOREIGN KEY (cpfCliente) REFERENCES CLIENTE(cpf),
-    FOREIGN KEY (idScript) REFERENCES SCRIPT(id),
-    FOREIGN KEY (idPlano) REFERENCES PLANO(id));
+    id_venda INTEGER PRIMARY KEY,
+    id_atendente INTEGER,
+    id_cliente INTEGER,
+    id_script INTEGER,
+    id_plano INTEGER,
+    FOREIGN KEY (id_atendente) REFERENCES ATENDENTE(id_atendente),
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+    FOREIGN KEY (id_script) REFERENCES SCRIPT(id_script),
+    FOREIGN KEY (id_plano) REFERENCES PLANO(id_plano));
 
+-----------ATENDENTE 
+INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
+VALUES ('11', 'Marcos Garrido', '78945612355', 'Comercial', 'pass123', 'Regular');
+INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
+VALUES ('12', 'Izabelly Oliveira', '32165498701', 'Comercial', 'pass234', 'Rergular');
 
-INSERT INTO CLIENTE (id, nome, cpf, dtNascimento, genero, cep, telefone, email, perfil) VALUES (1, 'John Doe', '12345678901', '1990-01-01', 'Male', '12345678', '1234567890', 'john.doe@example.com', 'Regular');
+-----------PLANO
+INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
+VALUES ('Premium', 1, 'Pacote premium,', '50.00');
+INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
+VALUES ('Basic', 2, 'Pacote Basico,', '20.00');
 
-INSERT INTO ESPECIFICACAO (id, tipoCartaoCredito, gastoMensal, rendaMensal, viajaFrequentemente, interesses, profissao, dependentes, cpfCliente) VALUES (1, 'Visa', 1000.00, 5000.00, 1, 'Travel, Dining', 'Engineer', 2, '12345678901');
+-----------SCRIPT
+INSERT INTO SCRIPT (id_script, descricao_script, id_plano)
+VALUES ('1000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 1);
+INSERT INTO SCRIPT (id_script, descricao_script, id_plano)
+VALUES ('2000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 2);
 
-INSERT INTO ATENDENTE (id, nome, cpf, setor, senha, perfil) VALUES (1, 'Jane Smith', '98765432101', 'Customer Service', 'password', 'Regular');
+-----------CLIENTE
+INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
+VALUES ('1','Gabriel Cirillo', '234567891', '2004-06-04', 'Masculino', '09123380', '11979980903', 'cirilo@gmail.com', 'Influencia');
+INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
+VALUES ('2','Anna Soares', '45678921', '2000-06-04', 'Feminino', '09080360', '11961674481', 'anna@gmail.com', 'Dominancia');
 
-INSERT INTO PLANO (nomePlano, id, descricaoPlano, valorPlano) VALUES ('Basic Plan', 1, 'Basic plan with limited features', 9.99);
+-----------ESPECIFICA��O
+INSERT INTO ESPECIFICACAO (id_especificacao, tipo_cartao_credito, gasto_mensal, viaja_frequentemente, interesses, profissao, renda_mensal, dependentes, id_cliente)
+VALUES ('0105', 'Black', '20000.00', '1', 'Jogos, Shows, restaurantes, viagens', 'Desenvolvedor Java', '30000.00', '2','1');
+INSERT INTO ESPECIFICACAO (id_especificacao, tipo_cartao_credito, gasto_mensal, viaja_frequentemente, interesses, profissao, renda_mensal, dependentes, id_cliente)
+VALUES ('0108', 'Silver', '2000.00', '0', 'Shows, Livros, Academia', 'Desenvolvedora Front', '5000.00', '1','2');
 
-INSERT INTO SCRIPT (id, descricaoScript, idPlano) VALUES (1, 'Script for Basic Plan', 1);
-
-INSERT INTO VENDA (id, cpfAtendente, cpfCliente, idScript, idPlano) VALUES (1, '98765432101', '12345678901', 1, 1);
-
+-----------VENDA
+INSERT INTO VENDA (id_venda, id_atendente, id_cliente, id_script, id_plano)
+VALUES ('0101', '11', '1', '1000', '1');
+INSERT INTO VENDA (id_venda, id_atendente, id_cliente, id_script, id_plano)
+VALUES ('0202', '12', '2', '2000', '2');

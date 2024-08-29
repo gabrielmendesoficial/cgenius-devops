@@ -1,6 +1,6 @@
 package br.com.fiap.cgenius.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,20 +25,26 @@ import lombok.NoArgsConstructor;
 @Table(name="cliente")
 public class Cliente {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id_cliente")
     private Long id;
     
+    @Column(name="nome_cliente")
     @NotBlank(message = "Campo obrigatório")
     private String nome;
 
+    @Column(name="cpf_cliente")
     @NotBlank(message = "Campo obrigatório")
     @Size(min=11,  message = "CPF Inválido")
     private String cpf;
 
+    @Column(name="dt_nascimento")
     @NotNull(message="Campo Obrigatório")
-    private Date dtNascimento;
+    private LocalDate dtNascimento;
 
+    @Column(name="genero")
     private String genero;
 
+    @Column(name="cep")
     @NotBlank(message = "Campo obrigatório")
     @Size(min=8, max=8, message = "Cep Inválido")
     private String cep;
@@ -51,6 +57,7 @@ public class Cliente {
     @Email(message = "Email inválido")
     private String email;
 
+    @Column(name="perfil_cliente")
     @NotBlank(message = "Campo obrigatório")
     private String perfil;
 }

@@ -46,6 +46,10 @@ public class VendaController {
     //     return  vendaService.findAll(pageable);
     // }
 
+    public List<Venda> index(){
+        return vendaService.findAll();
+    }
+
     
     @PostMapping
     @ResponseStatus(CREATED)

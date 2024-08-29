@@ -58,7 +58,6 @@ public class PlanoController {
     public Plano create(@RequestBody Plano plano){
         log.info("cadastrando plano: {}", plano);
         return planoService.create(plano);
-        
     }
 
     @GetMapping("{id}")

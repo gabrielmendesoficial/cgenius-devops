@@ -6,5 +6,7 @@ import br.com.fiap.cgenius.model.Atendente;
 
 public interface AtendenteRepository extends JpaRepository<Atendente, Long>{
     Atendente findByCpf(String cpf);
+
     void deleteByCpf(String cpf);
+
 }
