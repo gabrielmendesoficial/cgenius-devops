@@ -24,7 +24,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "especificacao")
 public class Especificacao {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_especificacao")
     private Long id;
 
@@ -41,7 +42,6 @@ public class Especificacao {
     private BigDecimal rendaMensal;
 
     @Column(name="viaja_frequentemente")
-    @NotBlank(message = "Campo obrigatório")
     private Integer viajaFrequentemente;
 
     @NotBlank(message = "Campo obrigatório")
@@ -50,7 +50,6 @@ public class Especificacao {
     @NotBlank(message = "Campo obrigatório")
     private String profissao;
 
-    @NotBlank(message = "Campo obrigatório")
     private Integer dependentes;
 
     @OneToOne

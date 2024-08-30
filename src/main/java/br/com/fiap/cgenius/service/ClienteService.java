@@ -20,12 +20,11 @@ public class ClienteService {
     }
 
     public Cliente create(Cliente cliente){
-        if (clienteRepository.findByCpf(cliente.getCpf()) == null){
+        if (clienteRepository.findByCpf(cliente.getCpf()) == null ){
             return clienteRepository.save(cliente);
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente já cadastrado");
         }
-        
     }
 
     public Cliente findById(Long id){

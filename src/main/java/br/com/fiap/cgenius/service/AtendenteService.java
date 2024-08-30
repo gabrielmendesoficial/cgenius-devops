@@ -20,6 +20,14 @@ public class AtendenteService {
         return atendenteRepository.findAll();
     }
 
+    public Atendente create(Atendente atendente) {
+        if (atendenteRepository.findByCpf(atendente.getCpf()) == null) {
+            return atendenteRepository.save(atendente);
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");
+        }
+    }
+
     public Atendente findById(Long id) {
         return atendenteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrado atendente com o id: " + id));
@@ -31,14 +39,6 @@ public class AtendenteService {
             return atendente;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente não encontrado");
-        }
-    }
-
-    public Atendente create(Atendente atendente) {
-        if (atendenteRepository.findByCpf(atendente.getCpf()) == null) {
-            return atendenteRepository.save(atendente);
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");
         }
     }
 
@@ -61,10 +61,6 @@ public class AtendenteService {
         a.setPerfil(atendente.getPerfil());
         return atendenteRepository.save(a);
     }
-    
-    // public Atendente Login(@RequestParam String cpf, @RequestParam String senha) {
-    //     return atendenteRepository.login(cpf, senha);
-    // }
 
     public void delete(Long id) {
         verificarExistencia(id);

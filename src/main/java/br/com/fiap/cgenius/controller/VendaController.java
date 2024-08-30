@@ -6,6 +6,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,19 +34,13 @@ public class VendaController {
     @Autowired
     VendaService vendaService;
 
-    // @GetMapping
-    // @Operation(summary = "Lista todos os chamadas cadastrados no sistema.", description = "Endpoint que retorna um array de objetos do tipo chamada")
-    // public Venda index(
-    //     @RequestParam(required = false) String cpf,
-    //     @ParameterObject @PageableDefault(sort = "dtChamada", direction = Direction.DESC) Pageable pageable
-    // ){
-    //     if (cpf != null){
-    //         return vendaService.findByCpf(cpf, pageable);
-    //     }
-
-    //     return  vendaService.findAll(pageable);
-    // }
-
+    @GetMapping
+    @Cacheable
+    @Operation(summary = "Lista todas as vendas cadastrados no sistema.", description = "Endpoint que retorna um array de objetos do tipo venda")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de vendas retornada com sucesso"),
+        @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+})
     public List<Venda> index(){
         return vendaService.findAll();
     }
@@ -79,7 +74,7 @@ public class VendaController {
         }
     }
 
-    @GetMapping("cpf/{cpf_atendente}")
+    @GetMapping("cpfatendente/{cpf_atendente}")
     @Operation(summary = "Retorna uma venda especifico cadastrado no sistema.", description = "Endpoint que retorna um objeto do tipo venda com um cpf de atendente informado")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Venda encontrado com sucesso"),
@@ -96,7 +91,7 @@ public class VendaController {
     }
     }
 
-    @GetMapping("cpf/{cpf_cliente}")
+    @GetMapping("cpfcliente/{cpf_cliente}")
     @Operation(summary = "Retorna um venda especifico cadastrado no sistema.", description = "Endpoint que retorna um objeto do tipo venda com um cpf de cliente informado")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Venda encontrado com sucesso"),

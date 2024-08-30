@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.fiap.cgenius.model.Plano;
 import br.com.fiap.cgenius.model.Script;
 import br.com.fiap.cgenius.repository.PlanoRepository;
 import br.com.fiap.cgenius.repository.ScriptRepository;
@@ -25,8 +24,11 @@ public class ScriptService {
     }
 
     public Script create(Script script){
-        verificarExistenciaPlano(script.getPlano());
-        return scriptRepository.save(script);
+        if(!planoRepository.findById(script.getPlano().getId()).isEmpty()){
+            return scriptRepository.save(script);
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Plano não encontrado");
+        }
     }
 
     public Script findById(Long id){
@@ -50,12 +52,5 @@ public class ScriptService {
         .orElseThrow(
             ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "id não encontrado")
         );
-    }
-    private void verificarExistenciaPlano(Plano plano){
-        if (!planoRepository.findById(plano.getId()).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Plano não encontrado.");
-        }
-    }
-    
-
+    }   
 }

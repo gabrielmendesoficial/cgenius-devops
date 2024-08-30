@@ -20,7 +20,6 @@ public class PlanoService {
     }
 
     public Plano create(Plano plano){
-        verificarExistencia(plano.getId());
         return planoRepository.save(plano);
     }
 

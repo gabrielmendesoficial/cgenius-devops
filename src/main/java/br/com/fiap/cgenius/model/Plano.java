@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idPlano")
+    @Column(name = "id_plano")
     private Long id;
 
     @Column(name = "nome_plano")
