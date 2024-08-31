@@ -24,7 +24,7 @@ public class AtendenteService {
         if (atendenteRepository.findByCpf(atendente.getCpf()) == null) {
             return atendenteRepository.save(atendente);
         }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Atendente já cadastrado");
         }
     }
 
@@ -40,6 +40,10 @@ public class AtendenteService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente não encontrado");
         }
+    }
+
+    public Atendente login(String cpf, String senha) {
+        return atendenteRepository.login(cpf, senha);
     }
 
     public Atendente update(Long id, Atendente atendente) {

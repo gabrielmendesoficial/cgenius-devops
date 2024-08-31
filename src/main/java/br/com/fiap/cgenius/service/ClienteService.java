@@ -23,7 +23,7 @@ public class ClienteService {
         if (clienteRepository.findByCpf(cliente.getCpf()) == null ){
             return clienteRepository.save(cliente);
         }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado");
         }
     }
 

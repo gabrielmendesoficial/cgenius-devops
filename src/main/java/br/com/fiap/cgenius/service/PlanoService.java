@@ -24,7 +24,8 @@ public class PlanoService {
     }
 
     public Plano findById(Long id){
-        return planoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "id não encontrado"));
+        return planoRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "id não encontrado"));
     }
     
     public void delete(Long id){
