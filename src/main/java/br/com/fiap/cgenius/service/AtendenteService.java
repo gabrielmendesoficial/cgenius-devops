@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 
 import br.com.fiap.cgenius.model.Atendente;
 import br.com.fiap.cgenius.repository.AtendenteRepository;
@@ -16,12 +18,16 @@ public class AtendenteService {
     @Autowired
     AtendenteRepository atendenteRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<Atendente> findAll() {
         return atendenteRepository.findAll();
     }
 
     public Atendente create(Atendente atendente) {
         if (atendenteRepository.findByCpf(atendente.getCpf()) == null) {
+            atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
             return atendenteRepository.save(atendente);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");

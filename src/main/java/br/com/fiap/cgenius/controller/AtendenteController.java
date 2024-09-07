@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.fiap.cgenius.dto.AtendenteRequest;
+import br.com.fiap.cgenius.dto.AtendenteResponse;
 import br.com.fiap.cgenius.model.Atendente;
 import br.com.fiap.cgenius.service.AtendenteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,9 +64,10 @@ public class AtendenteController {
         @ApiResponse(responseCode = "409", description = "Atendente já cadastrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
-    public Atendente create(@RequestBody Atendente atendente){
-        log.info("cadastrando atendente: {}", atendente);
-            return atendenteService.create(atendente);
+    public ResponseEntity<AtendenteResponse> create(@RequestBody AtendenteRequest atendenteRequest, UriComponentsBuilder UriBuilder){
+        var atendente = atendenteService.create(atendenteRequest.toModel());
+        var uri = UriBuilder.path("/atendente/{id}").buildAndExpand(atendente.getId()).toUri();
+            return ResponseEntity.created(uri).body(AtendenteResponse.from(atendente));
 }
 
     @GetMapping("{id}")
