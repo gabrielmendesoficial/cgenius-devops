@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import br.com.fiap.cgenius.model.Atendente;
-import br.com.fiap.cgenius.repository.AtendenteRepository;
+import br.com.fiap.cgenius.domain.model.Atendente;
+import br.com.fiap.cgenius.domain.repository.AtendenteRepository;
 
 
 @Service

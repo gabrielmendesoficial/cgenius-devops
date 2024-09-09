@@ -3,7 +3,7 @@ package br.com.fiap.cgenius.auth;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.cgenius.repository.AtendenteRepository;
+import br.com.fiap.cgenius.domain.repository.AtendenteRepository;
 
 @Service
 public class AuthService {
