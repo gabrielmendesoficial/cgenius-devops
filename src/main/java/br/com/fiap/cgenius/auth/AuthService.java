@@ -18,7 +18,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Token login (Credentials credentials){
+    public Token login(Credentials credentials){
         var atendente = atendenteRepository.findByCpf(credentials.cpf());
         if(atendente == null){
             throw new RuntimeException("Atendente não encontrado");

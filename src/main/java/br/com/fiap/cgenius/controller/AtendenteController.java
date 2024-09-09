@@ -51,6 +51,7 @@ public class AtendenteController {
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
     public List<Atendente> index(){
+        log.info("Listando todos os atendentes");
         return atendenteService.findAll();
     }
 

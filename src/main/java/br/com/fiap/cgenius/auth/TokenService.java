@@ -29,18 +29,17 @@ public class TokenService {
         String token = JWT.create()
             .withSubject(cpf)
             .withExpiresAt(expirationAt)
-            .withIssuer("cpf")
+            .withIssuer("cgenius")
             .sign(ALGORITHM);
         return new Token(token, cpf);
     }
 
     public Atendente getAtendenteFromToken(String token) {
         var cpf = JWT.require(ALGORITHM)
-                .withIssuer("cpf")
+                .withIssuer("cgenius")
                 .build()
                 .verify(token)
-                .getSubject();
-
+                .getSubject();    
         var atendente = atendenteRepository.findByCpf(cpf);
         if (atendente != null) {
             return atendente;

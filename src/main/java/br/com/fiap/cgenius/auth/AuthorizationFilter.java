@@ -43,13 +43,17 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
         try{
             var atendente = tokenService.getAtendenteFromToken(token);
-            var auth = new UsernamePasswordAuthenticationToken(atendente.getCpf(), atendente.getSenha());
+            var auth = new UsernamePasswordAuthenticationToken(atendente.getCpf(), atendente.getSenha(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
             SecurityContextHolder.getContext().setAuthentication(auth);
             filterChain.doFilter(request, response);
         }catch (Exception e){
             response.setStatus(403);
             response.addHeader("Content-Type", "application/json");
-            response.getWriter().write("Não autorizado".formatted(e.getMessage()));
+            response.getWriter().write("""
+                {
+                    "message": "%s"
+                }
+            """.formatted(e.getMessage()));
 
         }
     }
