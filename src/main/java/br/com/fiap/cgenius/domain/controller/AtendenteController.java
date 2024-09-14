@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.cgenius.domain.dto.AtendenteRequest;
 import br.com.fiap.cgenius.domain.dto.AtendenteResponse;
+import br.com.fiap.cgenius.domain.dto.AtendenteUpdate;
 import br.com.fiap.cgenius.domain.model.Atendente;
 import br.com.fiap.cgenius.domain.service.AtendenteService;
 import io.swagger.v3.oas.annotations.Operation;
