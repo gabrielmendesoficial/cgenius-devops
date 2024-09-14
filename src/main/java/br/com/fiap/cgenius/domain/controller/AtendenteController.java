@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.cgenius.domain.dto.AtendenteRequest;
 import br.com.fiap.cgenius.domain.dto.AtendenteResponse;
+import br.com.fiap.cgenius.domain.dto.AtendenteUpdate;
 import br.com.fiap.cgenius.domain.model.Atendente;
 import br.com.fiap.cgenius.domain.service.AtendenteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,11 +79,11 @@ public class AtendenteController {
         @ApiResponse(responseCode = "404", description = "Atendente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
-    public ResponseEntity<Atendente> get(@PathVariable Long id){
+    public ResponseEntity<AtendenteResponse> get(@PathVariable Long id){
         log.info("Buscar por id: {}", id);
         Atendente atendente = atendenteService.findById(id);
         if (atendente != null) {
-            return ResponseEntity.ok(atendente);
+            return ResponseEntity.ok(AtendenteResponse.from(atendente));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -94,11 +95,11 @@ public class AtendenteController {
         @ApiResponse(responseCode = "404", description = "Atendente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
-    public ResponseEntity<Atendente> get(@PathVariable String cpf_atendente){
+    public ResponseEntity<AtendenteResponse> get(@PathVariable String cpf_atendente){
         log.info("Buscar por CPF: {}", cpf_atendente);
         Atendente atendente = atendenteService.findByCpf(cpf_atendente);
     if (atendente != null) {
-        return ResponseEntity.ok(atendente);
+        return ResponseEntity.ok(AtendenteResponse.from(atendente));
     } else {
         return ResponseEntity.notFound().build();
     }
@@ -142,9 +143,12 @@ public class AtendenteController {
         @ApiResponse(responseCode = "404", description = "Atendente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
-    public Atendente update(@PathVariable Long id, @RequestBody Atendente atendente){
-        log.info("Atualizando o cadastro do id={} para {}", id, atendente);
-        return atendenteService.update(id, atendente);
+    public ResponseEntity<AtendenteResponse> update(@PathVariable Long id, @RequestBody AtendenteUpdate atendenteUpdate) {
+        log.info("Atualizando o cadastro do id={} para {}", id, atendenteUpdate);
+        Atendente atendente = atendenteService.findById(id);
+        atendenteUpdate.toModel(atendente);
+        Atendente updatedAtendente = atendenteService.update(atendente);
+        return ResponseEntity.ok(AtendenteResponse.from(updatedAtendente));
     }
 
     @PutMapping("cpf/{cpf_atendente}")
@@ -155,8 +159,11 @@ public class AtendenteController {
         @ApiResponse(responseCode = "404", description = "Atendente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
-    public Atendente update(@PathVariable String cpf_atendente, @RequestBody Atendente atendente){
-        log.info("Atualizando o cadastro do id={} para {}", cpf_atendente, atendente);
-        return atendenteService.update(cpf_atendente, atendente);
+    public ResponseEntity<AtendenteResponse> update(@PathVariable String cpf_atendente, @RequestBody AtendenteUpdate atendenteUpdate){
+        log.info("Atualizando o cadastro do id={} para {}", cpf_atendente, atendenteUpdate);
+        Atendente atendente = atendenteService.findByCpf(cpf_atendente);
+        atendenteUpdate.toModel(atendente);
+        Atendente updatedAtendente = atendenteService.update(atendente);
+        return ResponseEntity.ok(AtendenteResponse.from(updatedAtendente));
     }
 }

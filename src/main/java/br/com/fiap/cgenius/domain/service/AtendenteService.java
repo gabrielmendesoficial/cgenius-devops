@@ -47,24 +47,14 @@ public class AtendenteService {
         }
     }
 
-    public Atendente update(Long id, Atendente atendente) {
-        Atendente a = findById(id);
-        a.setNome(atendente.getNome());
-        a.setCpf(atendente.getCpf());
-        a.setSetor(atendente.getSetor());
-        a.setSenha(atendente.getSenha());
-        a.setPerfil(atendente.getPerfil());
-        return atendenteRepository.save(a);
+    public Atendente update(Atendente atendente) {
+        atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
+        return atendenteRepository.save(atendente);
     }
 
     public Atendente update(String cpf_atendente, Atendente atendente){
-        Atendente a = verificarCpf(cpf_atendente);
-        a.setNome(atendente.getNome());
-        a.setCpf(atendente.getCpf());
-        a.setSetor(atendente.getSetor());
-        a.setSenha(atendente.getSenha());
-        a.setPerfil(atendente.getPerfil());
-        return atendenteRepository.save(a);
+        atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
+        return atendenteRepository.save(atendente);
     }
 
     public void delete(Long id) {

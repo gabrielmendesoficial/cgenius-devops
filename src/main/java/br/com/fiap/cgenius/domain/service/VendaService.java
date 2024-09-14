@@ -50,7 +50,6 @@ public class VendaService {
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente, Cliente, Script ou Plano não encontrado");
         }
-        
     }
 
     public Venda findById(Long id){
