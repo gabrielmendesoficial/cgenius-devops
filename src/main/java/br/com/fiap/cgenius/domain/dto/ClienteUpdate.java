@@ -1,25 +1,27 @@
 package br.com.fiap.cgenius.domain.dto;
 
-import java.time.LocalDate;
-
 import br.com.fiap.cgenius.domain.model.Cliente;
-import br.com.fiap.cgenius.domain.service.ClienteService;
+
 
 public record ClienteUpdate(
     String nome,
     String telefone,
     String cep,
-    String email,
-    LocalDate dtNascimento
+    String email
 ) {
-    public static Cliente toModel(Long clienteId, ClienteUpdate clienteUpdate) {
-        ClienteService clienteService = new ClienteService();
-        Cliente cliente = clienteService.findById(clienteId);
-        cliente.setNome(clienteUpdate.nome());
-        cliente.setTelefone(clienteUpdate.telefone());
-        cliente.setCep(clienteUpdate.cep());
-        cliente.setEmail(clienteUpdate.email());
-        cliente.setDtNascimento(clienteUpdate.dtNascimento());
+    public Cliente toModel(Cliente cliente) {
+        if (nome != null) {
+            cliente.setNome(nome);
+        }
+        if (telefone != null) {
+            cliente.setTelefone(telefone);
+        }
+        if (cep != null) {
+            cliente.setCep(cep);
+        }
+        if (email != null) {
+            cliente.setEmail(email);
+        }
         return cliente;
     }
 }

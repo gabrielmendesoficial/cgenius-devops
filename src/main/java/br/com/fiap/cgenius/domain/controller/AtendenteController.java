@@ -67,9 +67,10 @@ public class AtendenteController {
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
 })
     public ResponseEntity<AtendenteResponse> create(@RequestBody AtendenteRequest atendenteRequest, UriComponentsBuilder UriBuilder){
+        log.info("cadastrando cliente: {}", atendenteRequest);
         var atendente = atendenteService.create(atendenteRequest.toModel());
         var uri = UriBuilder.path("/atendente/{id}").buildAndExpand(atendente.getId()).toUri();
-            return ResponseEntity.created(uri).body(AtendenteResponse.from(atendente));
+        return ResponseEntity.created(uri).body(AtendenteResponse.from(atendente));
 }
 
     @GetMapping("{id}")
@@ -147,8 +148,8 @@ public class AtendenteController {
         log.info("Atualizando o cadastro do id={} para {}", id, atendenteUpdate);
         Atendente atendente = atendenteService.findById(id);
         atendenteUpdate.toModel(atendente);
-        Atendente updatedAtendente = atendenteService.update(atendente);
-        return ResponseEntity.ok(AtendenteResponse.from(updatedAtendente));
+        Atendente a = atendenteService.update(atendente);
+        return ResponseEntity.ok(AtendenteResponse.from(a));
     }
 
     @PutMapping("cpf/{cpf_atendente}")
@@ -163,7 +164,6 @@ public class AtendenteController {
         log.info("Atualizando o cadastro do id={} para {}", cpf_atendente, atendenteUpdate);
         Atendente atendente = atendenteService.findByCpf(cpf_atendente);
         atendenteUpdate.toModel(atendente);
-        Atendente updatedAtendente = atendenteService.update(atendente);
-        return ResponseEntity.ok(AtendenteResponse.from(updatedAtendente));
+        return ResponseEntity.ok(AtendenteResponse.from(atendenteService.update(atendente)));
     }
 }

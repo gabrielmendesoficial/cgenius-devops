@@ -29,7 +29,7 @@ public class AtendenteService {
             atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
             return atendenteRepository.save(atendente);
         }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Atendente já cadastrado");
         }
     }
 
@@ -48,11 +48,6 @@ public class AtendenteService {
     }
 
     public Atendente update(Atendente atendente) {
-        atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
-        return atendenteRepository.save(atendente);
-    }
-
-    public Atendente update(String cpf_atendente, Atendente atendente){
         atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
         return atendenteRepository.save(atendente);
     }

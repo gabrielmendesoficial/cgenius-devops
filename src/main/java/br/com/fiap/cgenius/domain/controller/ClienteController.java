@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.fiap.cgenius.domain.dto.ClienteRequest;
+import br.com.fiap.cgenius.domain.dto.ClienteResponse;
+import br.com.fiap.cgenius.domain.dto.ClienteUpdate;
 import br.com.fiap.cgenius.domain.model.Cliente;
 import br.com.fiap.cgenius.domain.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,10 +62,11 @@ public class ClienteController {
         @ApiResponse(responseCode = "400", description = "Erro de validação do cliente"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public Cliente create(@RequestBody Cliente cliente){
-        log.info("cadastrando cliente: {}", cliente);
-        return clienteService.create(cliente);
-        
+    public ResponseEntity<ClienteResponse> create(@RequestBody ClienteRequest clienteRequest, UriComponentsBuilder uriBuilder){
+        log.info("cadastrando cliente: {}", clienteRequest);
+        var cliente = clienteService.create(clienteRequest.toModel());
+        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).body(ClienteResponse.from(cliente)); 
     }
 
     @GetMapping("{id}")
@@ -71,11 +76,11 @@ public class ClienteController {
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public ResponseEntity<Cliente> get(@PathVariable Long id){
+    public ResponseEntity<ClienteResponse> get(@PathVariable Long id){
         log.info("Buscar por id: {}", id);
         Cliente cliente = clienteService.findById(id);
         if (cliente != null) {
-            return ResponseEntity.ok(cliente);
+            return ResponseEntity.ok(ClienteResponse.from(cliente));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -88,11 +93,11 @@ public class ClienteController {
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public ResponseEntity<Cliente> get(@PathVariable String cpf_cliente){
+    public ResponseEntity<ClienteResponse> get(@PathVariable String cpf_cliente){
         log.info("Buscar por CPF: {}", cpf_cliente);
         Cliente cliente = clienteService.findByCpf(cpf_cliente);
     if (cliente != null) {
-        return ResponseEntity.ok(cliente);
+        return ResponseEntity.ok(ClienteResponse.from(cliente));
     } else {
         return ResponseEntity.notFound().build();
     }
@@ -125,6 +130,7 @@ public class ClienteController {
         clienteService.deleteByCpf(cpf_cliente);
     }
 
+    @Transactional
     @PutMapping("{id}")
     @Operation(summary = "Atualiza um cliente pelo ID.", description = "Endpoint que atualiza um cliente com um ID informado")
     @ApiResponses(value = {
@@ -133,9 +139,12 @@ public class ClienteController {
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public Cliente update(@PathVariable Long id, @RequestBody Cliente cliente){
-        log.info("Atualizando o cadastro do id={} para {}", id, cliente);
-        return clienteService.update(id, cliente);
+    public ResponseEntity<ClienteResponse> update(@PathVariable Long id, @RequestBody ClienteUpdate clienteUpdate){
+        log.info("Atualizando o cadastro do id = {} para {}", id, clienteUpdate);
+        Cliente cliente = clienteService.findById(id);
+        clienteUpdate.toModel(cliente);
+        Cliente c = clienteService.update(cliente);
+        return ResponseEntity.ok(ClienteResponse.from(c));
     }
 
     @PutMapping("cpf/{cpf_cliente}")
@@ -146,8 +155,10 @@ public class ClienteController {
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
         @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public Cliente update(@PathVariable String cpf_cliente, @RequestBody Cliente cliente){
-        log.info("Atualizando o cadastro do pcf={} para {}", cpf_cliente, cliente);
-        return clienteService.updateByCpf(cpf_cliente, cliente);
-}
+    public ResponseEntity<ClienteResponse> update(@PathVariable String cpf_cliente, @RequestBody ClienteUpdate clienteUpdate){
+        log.info("Atualizando o cadastro do cpf={} para {}", cpf_cliente, clienteUpdate);
+        Cliente cliente = clienteService.findByCpf(cpf_cliente);
+        clienteUpdate.toModel(cliente);
+        return ResponseEntity.ok(ClienteResponse.from(clienteService.update(cliente)));
+    }
 }

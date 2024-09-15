@@ -27,5 +27,4 @@ public record ClienteRequest(
         .perfil(perfil)
         .build();
     }
-
 }

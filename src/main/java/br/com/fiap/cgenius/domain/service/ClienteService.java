@@ -12,6 +12,7 @@ import br.com.fiap.cgenius.domain.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
+
     @Autowired
     ClienteRepository clienteRepository;
 
@@ -23,7 +24,7 @@ public class ClienteService {
         if (clienteRepository.findByCpf(cliente.getCpf()) == null ){
             return clienteRepository.save(cliente);
         }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado");
         }
     }
 
@@ -42,6 +43,10 @@ public class ClienteService {
     }
     }
 
+    public Cliente update(Cliente cliente){
+        return clienteRepository.save(cliente);
+    }
+
     public void deleteById(Long id){
         verificarId(id);
         clienteRepository.deleteById(id);
@@ -51,25 +56,6 @@ public class ClienteService {
         verificarCpf(cpfCliente);
         clienteRepository.deleteByCpf(cpfCliente);
     }
-
-    public Cliente update(Long id, Cliente cliente){
-        verificarId(id);
-        cliente.setId(id);
-        return clienteRepository.save(cliente);
-    }
-
-    public Cliente updateByCpf(String cpfCliente, Cliente cliente){
-        Cliente c = verificarCpf(cpfCliente);
-        c.setNome(cliente.getNome());
-        c.setCpf(cliente.getCpf());
-        c.setDtNascimento(cliente.getDtNascimento());
-        c.setGenero(cliente.getGenero());
-        c.setCep(cliente.getCep());
-        c.setTelefone(cliente.getTelefone());
-        c.setEmail(cliente.getEmail());
-        c.setPerfil(cliente.getPerfil());
-        return clienteRepository.save(c);
-}
 
     private void verificarId(Long id){
         clienteRepository.

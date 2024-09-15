@@ -127,7 +127,7 @@ public class VendaController {
             @ApiResponse(responseCode = "200", description = "Venda atualizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Venda não encontrada")
     })
-    public  Venda update(@PathVariable Long id, @RequestBody Venda venda){
+    public Venda update(@PathVariable Long id, @RequestBody Venda venda){
         log.info("Atualizando o cadastro do id={} para {}", id, venda);
         return vendaService.update(id, venda);
     }
