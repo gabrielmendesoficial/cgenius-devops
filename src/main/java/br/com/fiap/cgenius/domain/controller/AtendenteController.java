@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -120,17 +119,6 @@ public class AtendenteController {
     public void destroy (@PathVariable Long id){
         log.info("Apagando id {}", id);
         atendenteService.delete(id);
-    }
-
-    @GetMapping("login")
-    @Operation(summary = "Realiza o login de um atendente cadastrado no sistema.", description = "Endpoint que retorna um objeto do tipo atendente com um cpf e uma senha informados")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
-        @ApiResponse(responseCode = "401", description = "Credenciais inválidas"),
-        @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-})
-    public Atendente Login(@RequestParam String cpf, @RequestParam String senha) {
-        return atendenteService.login(cpf, senha);
     }
     
     @Transactional
