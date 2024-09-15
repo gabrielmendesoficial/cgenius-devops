@@ -8,9 +8,9 @@
 CREATE TABLE ATENDENTE(
     id_atendente INTEGER PRIMARY KEY,
     nome_atendente VARCHAR(50),
-    cpf_atendente VARCHAR(11) UNIQUE,
+    cpf_atendente VARCHAR(11),
     setor VARCHAR(20),
-    senha VARCHAR(10),
+    senha VARCHAR,
     perfil_atendente VARCHAR(30)
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE SCRIPT(
 CREATE TABLE CLIENTE(
     id_cliente INTEGER PRIMARY KEY,
     nome_cliente VARCHAR(50),
-    cpf_cliente VARCHAR(11) UNIQUE,
+    cpf_cliente VARCHAR(11),
     dt_nascimento DATE,
     genero VARCHAR(10),
     cep CHAR(8),
@@ -66,19 +66,19 @@ CREATE TABLE VENDA(
 );
 
 --Sequences for table IDs
-CREATE SEQUENCE ATENDENTE_SEQ  START WITH 3 INCREMENT BY 50;
-CREATE SEQUENCE PLANO_SEQ START WITH 3 INCREMENT BY 50;
-CREATE SEQUENCE SCRIPT_SEQ START WITH 3 INCREMENT BY 50;
-CREATE SEQUENCE CLIENTE_SEQ START WITH 3 INCREMENT BY 50;
-CREATE SEQUENCE ESPECIFICACAO_SEQ START WITH 3 INCREMENT BY 50;
-CREATE SEQUENCE VENDA_SEQ START WITH 3 INCREMENT BY 50;
+CREATE SEQUENCE ATENDENTE_SEQ  START WITH 22 INCREMENT BY 50;
+CREATE SEQUENCE PLANO_SEQ START WITH 22 INCREMENT BY 50;
+CREATE SEQUENCE SCRIPT_SEQ START WITH 22 INCREMENT BY 50;
+CREATE SEQUENCE CLIENTE_SEQ START WITH 22 INCREMENT BY 50;
+CREATE SEQUENCE ESPECIFICACAO_SEQ START WITH 22 INCREMENT BY 50;
+CREATE SEQUENCE VENDA_SEQ START WITH 22 INCREMENT BY 50;
 
 -- Inserindo dados
 
 INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (11, 'Marcos Garrido', '38387788805', 'Comercial', 'pass123', 'Regular');
+VALUES (11, 'Marcos Garrido', '38387788805', 'Comercial', '$2a$12$Ij5EUFMEeF/x8i/JwpEk0uwF6LLvl5Qgk8NN0hl7nwL2JMpNrMgfO', 'Regular'); --'pass123'
 INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (12, 'Izabelly Oliveira', '50958416818', 'Comercial', 'pass234', 'Regular');
+VALUES (12, 'Izabelly Oliveira', '50958416818', 'Comercial', '$2a$12$0MDnFmSxvUvfXnCL/gfZSO51a1C/Va3zkpMO01nzeuuLzjlK06jG6', 'Regular'); --'pass234'
 
 INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
 VALUES ('Premium', 1, 'Pacote premium,', 50.00);
@@ -96,9 +96,9 @@ VALUES (2000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
 -- VALUES (2, 'Anna Soares', '45678921', TO_DATE('06-04-2000', 'DD-MM-YYYY'), 'Feminino', '09080360', '11961674481', 'anna@gmail.com', 'Dominancia');
 
 INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
-VALUES ('1','Gabriel Cirillo', '234567891', '2004-06-04', 'Masculino', '09123380', '11979980903', 'cirilo@gmail.com', 'Influencia');
+VALUES ('1','Gabriel Cirillo', '23456789123', '2004-06-04', 'Masculino', '09123380', '11979980903', 'cirilo@gmail.com', 'Influencia');
 INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
-VALUES ('2','Anna Soares', '45678921', '2000-06-04', 'Feminino', '09080360', '11961674481', 'anna@gmail.com', 'Dominancia');
+VALUES ('2','Anna Soares', '4567892123', '2000-06-04', 'Feminino', '09080360', '11961674481', 'anna@gmail.com', 'Dominancia');
 
 
 INSERT INTO ESPECIFICACAO (id_especificacao, tipo_cartao_credito, gasto_mensal, viaja_frequentemente, interesses, profissao, renda_mensal, dependentes, id_cliente)
