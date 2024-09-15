@@ -47,9 +47,34 @@ public class AtendenteService {
         }
     }
 
+<<<<<<< HEAD:src/main/java/br/com/fiap/cgenius/domain/service/AtendenteService.java
     public Atendente update(Atendente atendente) {
         atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
         return atendenteRepository.save(atendente);
+=======
+    public Atendente login(String cpf, String senha) {
+        return atendenteRepository.login(cpf, senha);
+    }
+
+    public Atendente update(Long id, Atendente atendente) {
+        Atendente a = findById(id);
+        a.setNome(atendente.getNome());
+        a.setCpf(atendente.getCpf());
+        a.setSetor(atendente.getSetor());
+        a.setSenha(atendente.getSenha());
+        a.setPerfil(atendente.getPerfil());
+        return atendenteRepository.save(a);
+    }
+
+    public Atendente update(String cpf_atendente, Atendente atendente){
+        Atendente a = verificarCpf(cpf_atendente);
+        a.setNome(atendente.getNome());
+        a.setCpf(atendente.getCpf());
+        a.setSetor(atendente.getSetor());
+        a.setSenha(atendente.getSenha());
+        a.setPerfil(atendente.getPerfil());
+        return atendenteRepository.save(a);
+>>>>>>> main:src/main/java/br/com/fiap/cgenius/service/AtendenteService.java
     }
 
     public void delete(Long id) {
