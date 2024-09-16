@@ -44,6 +44,5 @@ public class Atendente {
     private String senha;
 
     @Column(name="perfil_atendente")
-    @NotBlank(message = "Campo obrigatório")
     private String perfil;   
 }
